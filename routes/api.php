@@ -29,6 +29,11 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::post('me', 'AuthController@me');
 
         Route::apiResource('phone', 'PhoneController');
+
+        Route::group(['middleware' => 'admin'], function () {
+
+        });
+
     });
 
 });

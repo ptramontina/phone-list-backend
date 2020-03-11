@@ -18,30 +18,17 @@ use Illuminate\Support\Facades\Route;
  * IMPORTANT:
  * To work properly, header "Accept: application/json" should be added to all requests
  */
-    
-Route::group([
 
-    'middleware' => 'api',
-    'prefix' => 'auth'
-
-], function ($router) {
+Route::group(['middleware' => 'api'], function ($router) {
 
     Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
 
-});
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::post('logout', 'AuthController@logout');
+        Route::post('me', 'AuthController@me');
 
-Route::post('add-test-user', function () {
-    $user = App\User::firstOrCreate([
-        'name' => 'John Doe',
-        'email' => 'john@doe.com',
-        'password' => bcrypt('test')
-    ]);
-    
-    return response()->json([
-        'success' => true,
-        'user' => $user
-    ]);
+        Route::apiResource('phone', 'PhoneController');
+    });
+
 });

@@ -31,7 +31,7 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::apiResource('phone', 'PhoneController');
 
         Route::group(['middleware' => 'admin'], function () {
-
+            Route::apiResource('company', 'CompanyController');
         });
     });
 

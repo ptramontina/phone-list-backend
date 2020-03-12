@@ -33,7 +33,8 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::group(['middleware' => 'admin'], function () {
 
         });
-
     });
+
+    Route::get('get-phone-list', 'PhoneListController@getPhoneList');
 
 });

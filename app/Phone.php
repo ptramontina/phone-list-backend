@@ -15,10 +15,6 @@ class Phone extends Model
         'number', 'type', 'user_id'
     ];
 
-    public const TYPE_LANDLINE   = 0;
-    public const TYPE_CELL_PHONE = 1;
-    public const TYPE_WHATSAPP   = 2;
-
     public function user()
     {
         return $this->hasOne('App\User', 'id', 'user_id');

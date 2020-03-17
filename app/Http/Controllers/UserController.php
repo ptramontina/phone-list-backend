@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Phone;
+use App\User;
 use Illuminate\Http\Request;
 
-class PhoneController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class PhoneController extends Controller
     {
         return response()->json([
             'success' => true,
-            'phones' => Phone::all(),
+            'users' => User::all(),
         ]);
     }
 
@@ -29,11 +29,11 @@ class PhoneController extends Controller
     public function store(Request $request)
     {
         try {
-            $phone = Phone::create($request->all());
+            $user = User::create($request->all());
 
             return response()->json([
                 'success' => true,
-                'phone'   => $phone,
+                'user'   => $user,
             ]);
         } catch (\Throwable $th) {
             return response()->json([ 'success' => false, 'message' => $th->getMessage() ]);
@@ -43,14 +43,14 @@ class PhoneController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Phone  $phone
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Phone $phone)
+    public function show(User $user)
     {
         return response()->json([
             'success' => true,
-            'phone'   => $phone,
+            'user'   => $user,
         ]);
     }
 
@@ -58,17 +58,17 @@ class PhoneController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Phone  $phone
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Phone $phone)
+    public function update(Request $request, User $user)
     {
         try {
-            $phone->update($request->all());
+            $user->update($request->all());
 
             return response()->json([
                 'success' => true,
-                'phone'   => $phone,
+                'user'   => $user,
             ]);
         } catch (\Throwable $th) {
             return response()->json([ 'success' => false, 'message' => $th->getMessage() ]);
@@ -78,17 +78,17 @@ class PhoneController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Phone  $phone
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Phone $phone)
+    public function destroy(User $user)
     {
         try {
-            $phone->delete();
+            $user->delete();
 
             return response()->json([
                 'success' => true,
-                'phone'   => $phone,
+                'user'   => $user,
             ]);
         } catch (\Throwable $th) {
             return response()->json([ 'success' => false, 'message' => $th->getMessage() ]);

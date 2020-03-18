@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'admin', 'company_id'
+        'name', 'email', 'password', 'admin', 'company_id', 'active'
     ];
 
     /**
@@ -37,6 +37,7 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
         'admin' => 'boolean',
+        'active' => 'boolean',
     ];
 
     /**
@@ -62,6 +63,11 @@ class User extends Authenticatable implements JWTSubject
     public function getIsAdminAttribute()
     {
         return $this->admin;
+    }
+
+    public function getIsActiveAttribute()
+    {
+        return $this->active;
     }
 
     public function phones()

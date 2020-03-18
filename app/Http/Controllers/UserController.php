@@ -64,7 +64,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         try {
-            $user->update($request->all());
+            $user->update(!$request->password ? $request->except('password') : $request->all());
 
             return response()->json([
                 'success' => true,

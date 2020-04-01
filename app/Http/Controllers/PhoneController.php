@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Phone;
+use App\User;
 use Illuminate\Http\Request;
 
 class PhoneController extends Controller
@@ -12,11 +13,12 @@ class PhoneController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
         return response()->json([
             'success' => true,
-            'phones' => Phone::all(),
+            'user' => $user,
+            'phones' => Phone::where('user_id', $user->id)->get(),
         ]);
     }
 
@@ -26,9 +28,11 @@ class PhoneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(User $user, Request $request)
     {
         try {
+            $request['user_id'] = $user->id;
+
             $phone = Phone::create($request->all());
 
             return response()->json([
@@ -46,11 +50,12 @@ class PhoneController extends Controller
      * @param  \App\Phone  $phone
      * @return \Illuminate\Http\Response
      */
-    public function show(Phone $phone)
+    public function show(User $user, Phone $phone)
     {
         return response()->json([
             'success' => true,
             'phone'   => $phone,
+            'user'   => $user,
         ]);
     }
 
@@ -61,7 +66,7 @@ class PhoneController extends Controller
      * @param  \App\Phone  $phone
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Phone $phone)
+    public function update(Request $request, User $user, Phone $phone)
     {
         try {
             $phone->update($request->all());
@@ -81,7 +86,7 @@ class PhoneController extends Controller
      * @param  \App\Phone  $phone
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Phone $phone)
+    public function destroy(User $user, Phone $phone)
     {
         try {
             $phone->delete();

@@ -93,6 +93,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         try {
+            $user->phones()->delete();
+
             $user->delete();
 
             return response()->json([

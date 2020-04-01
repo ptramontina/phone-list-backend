@@ -28,11 +28,10 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::post('logout', 'AuthController@logout');
         Route::post('me', 'AuthController@me');
 
-        Route::apiResource('phone', 'PhoneController');
-
         Route::group(['middleware' => 'admin'], function () {
             Route::apiResource('company', 'CompanyController');
             Route::apiResource('user', 'UserController');
+            Route::apiResource('user/{user}/phone', 'PhoneController');
         });
     });
 

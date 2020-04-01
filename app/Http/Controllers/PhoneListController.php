@@ -19,8 +19,8 @@ class PhoneListController extends Controller
             $phoneList = User::with('phones', 'company')->get()
             ->makeHidden(['id', 'email_verified_at', 'admin', 'created_at', 'updated_at', 'company_id'])
             ->each(function($user) {
-                $user->phones->makeHidden(['id', 'user_id', 'created_at', 'updated_at']);
-                $user->company->makeHidden(['id', 'created_at', 'updated_at']);
+                optional($user->phones)->makeHidden(['id', 'user_id', 'created_at', 'updated_at']);
+                optional($user->company)->makeHidden(['id', 'created_at', 'updated_at']);
             });
 
             return response()->json([
